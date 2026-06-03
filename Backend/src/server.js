@@ -1,8 +1,9 @@
+require("dotenv").config();
 const express = require('express');
+const path = require('path');
 
 require('dotenv').config();
 
-const path = require('path');
 
 
 const app = express();
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 const authRoutes = require("./routes/auth.route");
 const messagesRoutes = require("./routes/message.route");
+const connectDB = require("./lib/db.js");
 
 app.use(express.json());
 
@@ -28,6 +30,9 @@ app.get("/", (req, res) =>{
 });
 
 
-app.listen(PORT, () => {console.log("server running on port:" + PORT);
+
+app.listen(PORT, () => {
+    console.log("server running on port:" + PORT);
+    connectDB();
 
 });
