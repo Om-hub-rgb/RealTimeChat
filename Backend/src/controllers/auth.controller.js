@@ -1,6 +1,8 @@
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../lib/utils.js")
+const { ENV } = require("../lib/env.js");
+const { sendWelcomeEmail } = require("../emails/emailHandlers.js");
 const signup = async (req, res) => {
     const {fullname, email, password} = req.body;
     
@@ -41,7 +43,12 @@ const signup = async (req, res) => {
                 profilePic:newUser.profilePic,
             });
 
-          //todo: send a wellcome email to user  
+         
+          try {
+            await sendWelcomeEmail(newUser.email, newUser.fullname, ENV.CLIENT_URL);
+          } catch (error) {
+            console.error("Failed to send welcome email:", error);
+          }
 
         }else {
             res.status(400).json({message: "invalid user data"});
