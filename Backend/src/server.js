@@ -1,8 +1,8 @@
-require("dotenv").config();
+
 const express = require('express');
 const path = require('path');
 
-require('dotenv').config();
+const { ENV } = require("./lib/env.js");
 
 
 
@@ -12,7 +12,7 @@ const rootdir = path.resolve();
 console.log("ROOT:", rootdir);
 console.log("DIST:", path.join(rootdir, "../Frontend/dist"));
 
-const PORT = process.env.PORT || 3000;
+const PORT = ENV.PORT || 3000;
 
 const authRoutes = require("./routes/auth.route");
 const messagesRoutes = require("./routes/message.route");
