@@ -1,5 +1,6 @@
 
 const express = require('express');
+const cookieParser = require("cookie-parser");
 const path = require('path');
 
 const { ENV } = require("./lib/env.js");
@@ -19,6 +20,7 @@ const messagesRoutes = require("./routes/message.route");
 const connectDB = require("./lib/db.js");
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messagesRoutes);
