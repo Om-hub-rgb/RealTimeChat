@@ -1,8 +1,11 @@
 const express = require("express");
 const { signup, login, logout, updateProfile } = require("../controllers/auth.controller.js");
 const protectRoute = require("../middleware/auth.middleware.js");
+const arcjetProtection = require("../middleware/arcjet.middleware.js");
 
 const router = express.Router();
+
+router.use(arcjetProtection);
 
 router.post("/signup", signup);
 
